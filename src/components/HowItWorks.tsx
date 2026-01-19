@@ -11,15 +11,16 @@ export default function HowItWorks() {
                         How It <span className="text-[#00DC82]">Works</span>
                     </h2>
 
-                    <div className="relative group rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm max-w-7xl mx-auto shadow-2xl block h-[300px] lg:h-auto">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-                        <img
-                            className="w-full h-full object-cover rounded-3xl transform transition-transform duration-700 group-hover:scale-105"
-                            src="/imgs/specificaiton/how it work.jpg"
-                            alt="How Kenesis Works"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-10 z-20 text-left">
-                            <p className="text-zinc-200 font-medium max-w-2xl text-xl lg:text-3xl leading-snug drop-shadow-lg">
+                    <div className="relative group rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm max-w-7xl mx-auto shadow-2xl">
+                        <div className="p-4 lg:p-8">
+                            <img
+                                className="w-full h-auto rounded-xl border border-white/5"
+                                src="/imgs/specificaiton/how it work.jpg"
+                                alt="How Kenesis Works Diagram"
+                            />
+                        </div>
+                        <div className="p-6 lg:p-10 pt-0 text-left">
+                            <p className="text-zinc-200 font-medium max-w-2xl text-xl lg:text-3xl leading-snug">
                                 Revolutionary magnetic technology harnessing constant energy forces.
                             </p>
                         </div>
