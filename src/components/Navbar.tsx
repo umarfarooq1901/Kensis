@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -16,22 +18,32 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Prevent scrolling when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isOpen]);
+
     const isActive = (path: string) => pathname === path;
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 py-6`}
+            className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 py-4 lg:py-6`}
         >
             <div
                 className={`
                     flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300
                     bg-white/5 backdrop-blur-md border border-white/10
-                    w-full max-w-[90%] md:w-auto md:min-w-[600px] 
-                    ${scrolled ? "bg-black/40 shadow-lg border-white/5" : ""}
+                    w-full max-w-[95%] lg:max-w-[90%] md:w-auto md:min-w-[600px] 
+                    ${scrolled ? "bg-black/80 shadow-lg border-white/5" : ""}
                 `}
             >
                 {/* Logo Area */}
-                <Link href="/" className="group flex items-center gap-2 mr-8">
+                <Link href="/" className="group flex items-center gap-2 mr-8 z-50 relative" onClick={() => setIsOpen(false)}>
+                    {/* SVG Icon - Keeping original SVG logic but wrapping it */}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24px"
@@ -39,7 +51,6 @@ export default function Navbar() {
                         viewBox="0 0 24 24"
                         className={`transition-colors duration-300 text-white group-hover:text-[var(--color-primary)]`}
                     >
-                        {/* SVG Paths kept same */}
                         <path
                             fill="currentColor"
                             fillRule="evenodd"
@@ -74,41 +85,60 @@ export default function Navbar() {
                     <span className="font-bold text-lg tracking-wider text-white">KENESIS</span>
                 </Link>
 
-                {/* Navigation Links */}
-                <div className="hidden md:flex items-center gap-8">
-                    <Link
-                        href="/"
-                        className={`text-sm tracking-wide transition-colors duration-200 ${isActive('/') ? 'text-[var(--color-primary)]' : 'text-zinc-300 hover:text-white'}`}
-                    >
-                        HOME
-                    </Link>
-                    <Link
-                        href="/about"
-                        className={`text-sm tracking-wide transition-colors duration-200 ${isActive('/about') ? 'text-[var(--color-primary)]' : 'text-zinc-300 hover:text-white'}`}
-                    >
-                        ABOUT
-                    </Link>
-                    <Link
-                        href="/pricing"
-                        className={`text-sm tracking-wide transition-colors duration-200 ${isActive('/pricing') ? 'text-[var(--color-primary)]' : 'text-zinc-300 hover:text-white'}`}
-                    >
-                        PRICING
-                    </Link>
-                    <Link
-                        href="/contact"
-                        className={`text-sm tracking-wide transition-colors duration-200 ${isActive('/contact') ? 'text-[var(--color-primary)]' : 'text-zinc-300 hover:text-white'}`}
-                    >
-                        CONTACT
-                    </Link>
+                {/* Desktop Navigation Links */}
+                <div className="hidden lg:flex items-center gap-8">
+                    {['/', '/about', '/pricing', '/contact'].map((path) => (
+                        <Link
+                            key={path}
+                            href={path}
+                            className={`text-sm tracking-wide transition-colors duration-200 uppercase ${isActive(path) ? 'text-[var(--color-primary)]' : 'text-zinc-300 hover:text-white'}`}
+                        >
+                            {path === '/' ? 'Home' : path.slice(1)}
+                        </Link>
+                    ))}
                 </div>
 
-                {/* Right Side / CTA */}
-                <div className="flex items-center gap-4 ml-8">
-                    <Link href="/contact" className="hidden md:flex bg-white text-black px-5 py-2 rounded-full text-xs font-bold hover:bg-[var(--color-primary)] transition-colors duration-300">
+                {/* Right Side / CTA & Mobile Toggle */}
+                <div className="flex items-center gap-4 lg:ml-8">
+                    <Link href="/contact" className="hidden lg:flex bg-white text-black px-5 py-2 rounded-full text-xs font-bold hover:bg-[var(--color-primary)] transition-colors duration-300">
                         GET STARTED
                     </Link>
-                    {/* Mobile menu button placeholder for future implementation if needed */}
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="lg:hidden text-white hover:text-[var(--color-primary)] transition-colors z-50 relative"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X size={28} /> : <Menu size={28} />}
+                    </button>
                 </div>
+            </div>
+
+            {/* Mobile Overlay Menu */}
+            <div
+                className={`
+                    fixed inset-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-8
+                    transition-all duration-300 lg:hidden
+                    ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+                `}
+            >
+                {['/', '/about', '/pricing', '/contact'].map((path) => (
+                    <Link
+                        key={path}
+                        href={path}
+                        onClick={() => setIsOpen(false)}
+                        className={`text-2xl font-bold tracking-widest transition-colors duration-200 uppercase ${isActive(path) ? 'text-[var(--color-primary)]' : 'text-zinc-400 hover:text-white'}`}
+                    >
+                        {path === '/' ? 'Home' : path.slice(1)}
+                    </Link>
+                ))}
+                <Link
+                    href="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="mt-8 bg-[var(--color-primary)] text-black px-8 py-3 rounded-full text-lg font-bold hover:bg-[#00c574] transition-colors"
+                >
+                    GET STARTED
+                </Link>
             </div>
         </nav>
     );
