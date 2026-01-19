@@ -1,0 +1,20 @@
+
+
+.team-section {
+  @apply mx-auto p-6 text-center flex flex-col lg:flex-row lg:max-w-7xl;
+}
+.wrapper{
+  @apply  justify-center mx-auto flex lg:flex-row ;
+}
+.box{
+  @apply w-full p-2 flex flex-col;
+  .img{
+    @apply rounded-full mb-2;
+  }
+  h3{
+  @apply text-zinc-200 text-xl font-bold;
+  }
+  p {
+  @apply text-zinc-200 text-base	;
+  }
+}

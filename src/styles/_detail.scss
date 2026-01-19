@@ -1,0 +1,26 @@
+
+
+.section {
+  @apply flex flex-col lg:flex-row p-4 items-center justify-center bg-gradient-to-r from-neutral-900 to-zinc-950 ;
+  a {
+    @apply text-zinc-400 text-[0.75rem] font-[200] ;
+  }
+  p {
+    @apply text-zinc-200 text-xl text-center;
+  }
+  .column{
+    @apply p-4 lg:px-20;
+  }
+  h3 {
+    @apply text-white text-2xl font-bold text-center py-4;
+  }
+}
+.header-section{
+  @apply  flex flex-col lg:flex-row text-center lg:max-w-7xl;
+  h2 {
+    @apply text-white font-bold text-3xl lg:text-7xl;
+  }
+  .h2-glow{
+    @apply text-[#35cc91] text-5xl font-bold tracking-wide opacity-80;
+  }
+}

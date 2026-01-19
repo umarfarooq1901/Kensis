@@ -1,0 +1,21 @@
+
+
+.description {
+  @apply justify-center items-center py-4 bg-gradient-to-t from-neutral-900 to-zinc-950 ;
+  a {
+    @apply text-zinc-400 text-[0.75rem] font-[200] ;
+  }
+  h2 {
+    @apply text-white font-bold text-3xl;
+  }
+  .header-wrapper{
+    @apply text-center mx-auto space-y-6 p-4 max-w-7xl flex flex-col lg:flex-row;
+  }
+  .h2-glow{
+    @apply text-white text-5xl font-bold tracking-wide opacity-80;
+  }
+  h3{
+    @apply text-7xl text-violet-600;
+  }
+}
+

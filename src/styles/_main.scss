@@ -1,0 +1,50 @@
+
+
+@import "_variable";
+@import "_navbar";
+@import "_hero";
+@import "_detail";
+@import "_description";
+@import "_team";
+@import "_footer";
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    scale: 2;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+body {
+  @apply bg-zinc-950;
+}
+
+.section {
+  @apply bg-zinc-950;
+}
+
+.box-animate {
+  animation: fadeIn linear;
+  animation-timeline: view();
+  animation-range: entry 0;
+}
+
+
+.test-glow {
+  color: white;
+  text-shadow:
+    0 0 21px #fff,
+    0 0 11px #0fa,
+    0 0 38px #0fa
+  ;
+}
+
+.element {
+  background-color: radial-gradient(ellipse at center, #000303, #ff4500);
+  height: 200px;
+  width: 200px;
+}

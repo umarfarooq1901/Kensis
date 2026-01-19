@@ -1,0 +1,11 @@
+
+
+.navbar {
+  @apply fixed top-0 z-10 w-full;
+  div {
+    @apply flex justify-between items-center space-x-6 sm:space-x-20 py-4 px-4;
+  }
+  a {
+    @apply text-zinc-400 text-[1.00rem] font-[200] cursor-pointer transition-colors hover:text-zinc-50;
+  }
+}
